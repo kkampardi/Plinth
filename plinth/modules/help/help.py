@@ -40,6 +40,8 @@ def init():
                      'help:manual', 10)
     menu.add_urlname(ugettext_lazy('About'), 'glyphicon-star', 'help:about',
                      100)
+    menu.add_urlname(ugettext_lazy('How can I help'), 'glyphicon-info-sign', 'help:contribute',
+                     100)
 
 
 @public
@@ -90,3 +92,12 @@ def status_log(request):
         'data': data
     }
     return TemplateResponse(request, 'statuslog.html', context)
+
+@public
+def contribute(request  ):
+    """Serve the how can I help page"""
+    context = {
+        'title': _('How can I help to {box_name}').format(box_name=_(cfg.box_name)),
+    }
+
+    return  TemplateResponse(request, 'help_contribute.html', context)

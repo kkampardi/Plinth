@@ -1,3 +1,5 @@
+{% extends 'help_base.html' %}
+{% comment %}
 #
 # This file is part of Plinth.
 #
@@ -14,24 +16,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+{% endcomment %}
 
-"""
-URLs for the Help module
-"""
+{% load i18n %}
+{% load static %}
 
-from django.conf.urls import url
+{% block content %}
 
-from . import help as views
+  <h2>How can I help to {{ box_name }}</h2>
+
+  <p>
+    {% blocktrans trimmed %}
+    TODO: Add content
+    {% endblocktrans %}
+  </p>
 
 
-urlpatterns = [
-    # having two urls for one page is a hack to help the current url/menu
-    # system highlight the correct menu item. Every submenu-item with the same
-    # url prefix as the main-menu is highlighted automatically.
-    url(r'^help/$', views.index, name='index'),
-    url(r'^help/index/$', views.index, name='index_explicit'),
-    url(r'^help/about/$', views.about, name='about'),
-    url(r'^help/manual/$', views.manual, name='manual'),
-    url(r'^help/status-log/$', views.status_log, name='status-log'),
-    url(r'^help/contribute/$', views.contribute, name='contribute'),
-]
+
+{% endblock %}
