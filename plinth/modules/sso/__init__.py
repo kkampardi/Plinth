@@ -1,4 +1,3 @@
-{% comment %}
 #
 # This file is part of Plinth.
 #
@@ -15,19 +14,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-{% endcomment %}
+"""
+Plinth module to configure Single Sign On services.
+"""
 
-{% load i18n %}
+from plinth import actions, action_utils
+from django.utils.translation import ugettext_lazy as _
 
-<form class="form form-diagnostics-button" method="post"
-      action="{% url 'diagnostics:module' module %}">
-  {% csrf_token %}
+version = 1
 
-  {% if enabled %}
-    <input type="submit" class="btn btn-default"
-           value="{% trans "Run Diagnostics" %}"/>
-  {% else %}
-    <input type="submit" class="btn btn-default"
-           value="{% trans "Run Diagnostics" %}" disabled="disabled"/>
-  {% endif %}
-</form>
+is_essential = True
+
+depends = ['security']
+
+title = _('Single Sign On')
+
+managed_packages = ['libapache2-mod-auth-pubtkt', 'openssl', 'python3-openssl']
+
+first_boot_steps = [
+    {
+        'id': 'sso_firstboot',
+        'url': 'sso:firstboot',
+        'order': 1
+    },
+]
+
+
+def setup(helper, old_version=None):
+    """Install the required packages"""
+    helper.install(managed_packages)

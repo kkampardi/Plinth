@@ -1,4 +1,3 @@
-{% comment %}
 #
 # This file is part of Plinth.
 #
@@ -15,19 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-{% endcomment %}
+"""
+URLs for the Single Sign On module.
+"""
 
-{% load i18n %}
+from django.conf.urls import url
 
-<form class="form form-diagnostics-button" method="post"
-      action="{% url 'diagnostics:module' module %}">
-  {% csrf_token %}
+from .views import login, refresh, FirstBootView
+from stronghold.decorators import public
 
-  {% if enabled %}
-    <input type="submit" class="btn btn-default"
-           value="{% trans "Run Diagnostics" %}"/>
-  {% else %}
-    <input type="submit" class="btn btn-default"
-           value="{% trans "Run Diagnostics" %}" disabled="disabled"/>
-  {% endif %}
-</form>
+urlpatterns = [
+    url(r'^accounts/sso/login/$', public(login), name='sso-login'),
+    url(r'^accounts/sso/refresh/$', refresh, name='sso-refresh'),
+    url(r'^accounts/sso/firstboot/$', public(FirstBootView.as_view()), name='firstboot'),
+]
