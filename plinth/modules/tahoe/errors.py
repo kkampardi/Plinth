@@ -14,16 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+
 """
-URLs for the Single Sign On module.
+Errors for Tahoe-LAFS module
 """
 
-from django.conf.urls import url
+from plinth.errors import PlinthError
 
-from .views import login, refresh
-from stronghold.decorators import public
 
-urlpatterns = [
-    url(r'^accounts/sso/login/$', public(login), name='sso-login'),
-    url(r'^accounts/sso/refresh/$', refresh, name='sso-refresh'),
-]
+class TahoeConfigurationError(PlinthError):
+    """Tahoe-LAFS has not been configured for domain name."""
+    pass

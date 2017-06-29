@@ -90,14 +90,6 @@ def status_log(request):
     }
     return TemplateResponse(request, 'statuslog.html', context)
 
-@public
-def contribute(request  ):
-    """Serve the how can I help page"""
-    context = {
-        'title': _('How can I help to {box_name}').format(box_name=_(cfg.box_name)),
-    }
-
-    return  TemplateResponse(request, 'help_contribute.html', context)
 
 def get_os_release():
     """Returns the Debian release number and name"""
@@ -109,3 +101,11 @@ def get_os_release():
                 line = line.split('=')
                 output = line[1]
     return output
+
+def contribute(request  ):
+    """Serve the how can I help page"""
+    context = {
+        'title': _('How can I help to {box_name}').format(box_name=_(cfg.box_name)),
+    }
+
+    return TemplateResponse(request, 'help_contribute.html', context)

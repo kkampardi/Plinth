@@ -15,15 +15,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 """
-URLs for the Single Sign On module.
+URLs for the Tahoe-LAFS module.
 """
+
+from . import views
 
 from django.conf.urls import url
 
-from .views import login, refresh
-from stronghold.decorators import public
+from .views import TahoeSetupView, TahoeServiceView
+
 
 urlpatterns = [
-    url(r'^accounts/sso/login/$', public(login), name='sso-login'),
-    url(r'^accounts/sso/refresh/$', refresh, name='sso-refresh'),
+    url(r'^apps/tahoe-lafs/setup$', TahoeSetupView.as_view(),
+        name='setup'),
+    url(r'^apps/tahoe-lafs/add_introducer$', views.add_introducer,
+        name="add-introducer"),
+    url(r'^apps/tahoe-lafs/remove_introducer/(?P<introducer>[0-9a-zA-Z_]+)$',
+        views.remove_introducer, name="remove-introducer"),
+    url(r'^apps/tahoe-lafs/$', TahoeServiceView.as_view(),
+        name='index')
 ]
