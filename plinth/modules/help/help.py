@@ -27,7 +27,7 @@ from django.utils.translation import ugettext as _, ugettext_lazy
 
 from plinth import cfg, __version__
 from plinth.menu import main_menu
-
+from .help_items import get_help_items
 
 def init():
     """Initialize the Help module"""
@@ -104,8 +104,11 @@ def get_os_release():
 
 def contribute(request  ):
     """Serve the how can I help page"""
+
+    help_items = get_help_items()
     context = {
         'title': _('How can I help to {box_name}').format(box_name=_(cfg.box_name)),
+        'help_items': help_items
     }
 
     return TemplateResponse(request, 'help_contribute.html', context)
