@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^help/about/$', non_admin_view(views.about), name='about'),
     url(r'^help/manual/$', non_admin_view(views.manual), name='manual'),
     url(r'^help/status-log/$', non_admin_view(views.status_log), name='status-log'),
+    url(r'^help/contribute/$', non_admin_view(views.contribute), name='contribute'),
 ]

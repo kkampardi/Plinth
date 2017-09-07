@@ -27,7 +27,7 @@ from django.utils.translation import ugettext as _, ugettext_lazy
 
 from plinth import cfg, __version__
 from plinth.menu import main_menu
-
+from .help_items import get_help_items
 
 def init():
     """Initialize the Help module"""
@@ -37,8 +37,8 @@ def init():
                      'help:index_explicit', order=5)
     menu.add_urlname(ugettext_lazy('Manual'), 'glyphicon-info-sign',
                      'help:manual', order=10)
-    menu.add_urlname(ugettext_lazy('About'), 'glyphicon-star', 'help:about',
-                     order=100)
+    menu.add_urlname(ugettext_lazy('About'), 'glyphicon-star', 'help:about', order=100)
+    menu.add_urlname(ugettext_lazy('How can I help'), 'glyphicon-info-sign', 'help:contribute', order=100)
 
 
 def index(request):
@@ -99,3 +99,14 @@ def get_os_release():
                 line = line.split('=')
                 output = line[1]
     return output
+
+def contribute(request  ):
+    """Serve the how can I help page"""
+
+    help_items = get_help_items()
+    context = {
+        'title': _('How can I help to {box_name}').format(box_name=_(cfg.box_name)),
+        'help_items': help_items
+    }
+
+    return TemplateResponse(request, 'help_contribute.html', context)
