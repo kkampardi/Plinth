@@ -104,6 +104,7 @@ def contribute(request  ):
     """Serve the how can I help page"""
 
     help_items = get_help_items()
+
     context = {
         'title': _('How can I help to {box_name}').format(box_name=_(cfg.box_name)),
         'help_items': help_items
